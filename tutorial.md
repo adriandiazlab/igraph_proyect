@@ -443,12 +443,6 @@ The layout methods in igraph are to be found in the `Graph` object, and they alw
 |`layout_sphere`| `sphere`,`spherical`,`circular_3d`| Deterministic layout that places the vertices evenly on the surface of a sphere |
 
 
-
-
-
-
-
-
 Layout algorithms can either be called directly or using the common layout method called `~Graph.layout`:
 
     >>> layout = g.layout_kamada_kawai()
@@ -470,7 +464,9 @@ For instance, we can plot our imaginary social network with the Kamada-Kawai lay
 
 This should open an external image viewer showing a visual representation of the network, something like the one on the following figure (although the exact placement of nodes may be different on your machine since the layout is not deterministic):
 
-![Our social network with the Kamada-Kawai layout algorithm](figures/tutorial_social_network_1.png){.align-center}
+![alt text](https://github.com/iosonofabio/python-igraph/blob/RTD/doc/source/figures/tutorial_social_network_1.png?raw=true)
+
+Our social network with the Kamada-Kawai layout algorithm
 
 If you prefer to use [matplotlib](https://matplotlib.org/) as a plotting engine, create an axes and use the `target` argument:
 
@@ -478,7 +474,7 @@ If you prefer to use [matplotlib](https://matplotlib.org/) as a plotting engine,
     >>> fig, ax = plt.subplots()
     >>> ig.plot(g, layout=layout, target=ax)
 
-![](figures/tutorial_social_network_1_mpl.png){.align-center}
+![alt text](https://github.com/iosonofabio/python-igraph/blob/RTD/doc/source/figures/tutorial_social_network_1_mpl.png?raw=true)
 
 Hmm, this is not too pretty so far. A trivial addition would be to use the names as the vertex labels and to color the vertices according to the gender. Vertex labels are taken from the `label` attribute by default and vertex colors are determined by the `color` attribute, so we can simply create these attributes and re-plot the graph:
 
@@ -490,11 +486,15 @@ Hmm, this is not too pretty so far. A trivial addition would be to use the names
 
 Note that we are simply re-using the previous layout object here, but we also specified that we need a smaller plot (300 x 300 pixels) and a larger margin around the graph to fit the labels (20 pixels). The result is:
 
-![Our social network - with names as labels and genders as colors](figures/tutorial_social_network_2.png){.align-center}
+![alt text](https://github.com/iosonofabio/python-igraph/blob/RTD/doc/source/figures/tutorial_social_network_2.png?raw=true)
+
+Our social network - with names as labels and genders as colors
 
 and for matplotlib:
 
-![Our social network - with names as labels and genders as colors](figures/tutorial_social_network_2_mpl.png){.align-center}
+![alt text](https://github.com/iosonofabio/python-igraph/blob/RTD/doc/source/figures/tutorial_social_network_2_mpl.png?raw=true)
+
+Our social network - with names as labels and genders as colors
 
 Instead of specifying the visual properties as vertex and edge attributes, you can also give them as keyword arguments to `~drawing.plot`:
 
