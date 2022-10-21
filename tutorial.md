@@ -515,7 +515,9 @@ This latter approach is preferred if you want to keep the properties of the visu
 
 The final plot shows the formal ties with thick lines while informal ones with thin lines:
 
-![Our social network - also showing which ties are formal](figures/tutorial_social_network_3.png){.align-center}
+![alt text](https://github.com/iosonofabio/python-igraph/blob/RTD/doc/source/figures/tutorial_social_network_3.png?raw=true)
+
+Our social network - also showing which ties are formal
 
 To sum it all up: there are special vertex and edge properties that correspond to the visual representation of the graph. These attributes override the default settings of igraph (see `configuration`for overriding the system-wide defaults). Furthermore, appropriate keyword arguments supplied to `~drawing.plot` override the visual properties provided by the vertex and edge attributes. The following two tables summarise the most frequently used visual attributes for vertices and edges, respectively:
 
