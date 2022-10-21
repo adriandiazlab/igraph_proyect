@@ -521,27 +521,18 @@ To sum it all up: there are special vertex and edge properties that correspond t
 
 ### Vertex attributes controlling graph plots
 
-  Attribute name                  Keyword argument                              Purpose
-  ------------------------------- --------------------------------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  `color`                         `vertex_color`                                Color of the vertex
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `font`                          `vertex_font`                                 Font family of the vertex
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `label`                         `vertex_label`                                Label of the vertex
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `label_angle`                   `vertex_label_angle`                          The placement of the vertex label on the circle around the vertex. This is an angle in radians, with zero belonging to the right side of the vertex.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `label_color`                   `vertex_label_color`                          Color of the vertex label
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `label_dist`                    `vertex_label_dist`                           Distance of the vertex label from the vertex itself, relative to the vertex size
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `label_size`                    `vertex_label_size`                           Font size of the vertex label
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `order`                         `vertex_order`                                Drawing order of the vertices. Vertices with a smaller order parameter will be drawn first.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `shape`                         `vertex_shape`                                Shape of the vertex. Known shapes are: `rectangle`, `circle`, `hidden`, `triangle-up`, `triangle-down`. Several aliases are also accepted, see `drawing.known_shapes`.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `size`                          `vertex_size`                                 Size of the vertex in pixels
+| Attribute name | Keyword argument | Purpose |
+|---|---|----|
+| `color` |`vertex_color` | Color of the vertex |
+| `font` |                          `vertex_font`   |                              Font family of the vertex |
+|  `label`                        | `vertex_label`                              |  Label of the vertex |
+| `label_angle`                  | `vertex_label_angle`                         | The placement of the vertex label on the circle around the vertex. This is an angle in radians, with zero belonging to the right side of the vertex. |
+|  `label_color`                  | `vertex_label_color`                      |    Color of the vertex label |
+|  `label_dist`                   | `vertex_label_dist`                        |   Distance of the vertex label from the vertex itself, relative to the vertex size |
+|  `label_size`                  |  `vertex_label_size`                         |  Font size of the vertex label |
+|  `order`                       |  `vertex_order`                              |  Drawing order of the vertices. Vertices with a smaller order parameter will be drawn first. |
+|  `shape`                        | `vertex_shape`                               | Shape of the vertex. Known shapes are: `rectangle`, `circle`, `hidden`, `triangle-up`, `triangle-down`. Several aliases are also accepted, see `drawing.known_shapes`. |
+| `size`                         | `vertex_size`                              |   Size of the vertex in pixels |
 
 ### Edge attributes controlling graph plots
 
