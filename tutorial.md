@@ -1,20 +1,9 @@
-::: {#tutorial}
-::: currentmodule
-igraph
-:::
-:::
 
 # Tutorial
 
-This page is a detailed tutorial of igraph\'s Python capabilities. To get an quick impression of what igraph can do, check out the `tutorials/quickstart/quickstart`{.interpreted-text role="doc"}. If you have not installed igraph yet, follow the `install`{.interpreted-text role="doc"}.
+This page is a detailed tutorial of igraph\'s Python capabilities. To get an quick impression of what igraph can do, check out the `tutorials/quickstart/quickstart`. If you have not installed igraph yet, follow the `install`.
 
-::: note
-::: title
-Note
-:::
-
-For the impatient reader, see the `gallery`{.interpreted-text role="doc"} page for short, self-contained examples.
-:::
+Note: For the impatient reader, see the `gallery` page for short, self-contained examples.
 
 ## Starting igraph
 
@@ -32,17 +21,14 @@ To call functions, you need to prefix them with `ig` (or whatever name you chose
     >>> print(ig.__version__)
     0.9.8
 
-::: note
-::: title
 Note
-:::
 
 It is possible to use *star imports* for igraph:
 
     >>> from igraph import *
 
-but it is [generally discouraged](https://stackoverflow.com/questions/2386714/why-is-import-bad).
-:::
+But it is [generally discouraged](https://stackoverflow.com/questions/2386714/why-is-import-bad).
+
 
 There is a second way to start igraph, which is to call the script `igraph`{.interpreted-text role="command"} from your terminal:
 
