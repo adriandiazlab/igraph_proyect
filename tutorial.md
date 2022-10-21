@@ -576,21 +576,22 @@ These settings can be specified as keyword arguments to the `~drawing.plot` func
 
 igraph understands the following color specifications wherever it expects a color (e.g., edge, vertex or label colors in the respective attributes):
 
-X11 color names
+***X11 color names***
 
-:   See the [list of X11 color names](https://en.wikipedia.org/wiki/X11_color_names) in Wikipedia for the complete list. Alternatively you can see the keys of the igraph.drawing.colors.known_colors dictionary. Color names are case insensitive in igraph so \"DarkBlue\" can be written as \"darkblue\" as well.
+See the [list of X11 color names](https://en.wikipedia.org/wiki/X11_color_names) in Wikipedia for the complete list. Alternatively you can see the keys of the igraph.drawing.colors.known_colors dictionary. Color names are case insensitive in igraph so \"DarkBlue\" can be written as \"darkblue\" as well.
 
-Color specification in CSS syntax
+***Color specification in CSS syntax***
 
-:   This is a string according to one of the following formats (where *R*, *G* and *B* denote the red, green and blue components, respectively):
+This is a string according to one of the following formats (where *R*, *G* and *B* denote the red, green and blue components, respectively):
 
-    -   `#RRGGBB`, components range from 0 to 255 in hexadecimal format. Example: `"#0088ff"`.
-    -   `#RGB`, components range from 0 to 15 in hexadecimal format. Example: `"#08f"`.
-    -   `rgb(R, G, B)`, components range from 0 to 255 or from 0% to 100%. Example: `"rgb(0, 127, 255)"` or `"rgb(0%, 50%, 100%)"`.
+-   `#RRGGBB`, components range from 0 to 255 in hexadecimal format. Example: `"#0088ff"`.
+-   `#RGB`, components range from 0 to 15 in hexadecimal format. Example: `"#08f"`.
+-   `rgb(R, G, B)`, components range from 0 to 255 or from 0% to 100%. Example: `"rgb(0, 127, 255)"` or `"rgb(0%, 50%, 100%)"`.
+    
 
-Lists or tuples of RGB values in the range 0-1
+***Lists or tuples of RGB values in the range 0-1***
 
-:   Example: `(1.0, 0.5, 0)` or `[1.0, 0.5, 0]`.
+Example: `(1.0, 0.5, 0)` or `[1.0, 0.5, 0]`.
 
 ### Saving plots
 
@@ -610,25 +611,17 @@ Many file formats are supported by matplotlib.
 
 No graph module would be complete without some kind of import/export functionality that enables the package to communicate with external programs and toolkits. igraph is no exception: it provides functions to read the most common graph formats and to save `Graph` objects into files obeying these format specifications. The following table summarises the formats igraph can read or write:
 
-  Format                                                                      Short name                    Reader method                                             Writer method
-  --------------------------------------------------------------------------- ----------------------------- --------------------------------------------------------- -----------------------------------------------------------
-  Adjacency list (a.k.a. [LGL](https://lgl.sourceforge.net/#FileFormat))      `lgl`                         `Graph.Read_Lgl`           `Graph.write_lgl`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Adjacency matrix                                                            `adjacency`                   `Graph.Read_Adjacency`     `Graph.write_adjacency`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  DIMACS                                                                      `dimacs`                      `Graph.Read_DIMACS`        `Graph.write_dimacs`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  DL                                                                          `dl`                          `Graph.Read_DL`            not supported yet
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Edge list                                                                   `edgelist`, `edges`, `edge`   `Graph.Read_Edgelist`      `Graph.write_edgelist`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  [GraphViz](https://www.graphviz.org)                                        `graphviz`, `dot`             not supported yet                                         `Graph.write_dot`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  GML                                                                         `gml`                         `Graph.Read_GML`          `Graph.write_gml`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  GraphML                                                                     `graphml`                     `Graph.Read_GraphML`       `Graph.write_graphml`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Gzipped GraphML                                                             `graphmlz`                    `Graph.Read_GraphMLz`      `Graph.write_graphmlz`
+ | Format | Short name | Reader method |  Writer method |
+ |---|---|----|----|
+ | Adjacency list (a.k.a. [LGL](https://lgl.sourceforge.net/#FileFormat))   |   `lgl`  |     `Graph.Read_Lgl`    |     `Graph.write_lgl` |
+ | Adjacency matrix   |     `adjacency`   |  `Graph.Read_Adjacency`   |  `Graph.write_adjacency` |
+ |DIMACS   |       `dimacs`  |  `Graph.Read_DIMACS`   |  `Graph.write_dimacs` |
+ | DL       |  `dl`        |                  `Graph.Read_DL`       |     not supported yet |
+ | Edge list |   `edgelist`, `edges`, `edge` |  `Graph.Read_Edgelist`    |  `Graph.write_edgelist` |
+ | [GraphViz](https://www.graphviz.org)   |    `graphviz`, `dot`      |       not supported yet     |         `Graph.write_dot` |
+ | GML   |   `gml`   |    `Graph.Read_GML`  |  `Graph.write_gml` |
+ | GraphML  |    `graphml`   |        `Graph.Read_GraphML`   |    `Graph.write_graphml` |
+ |Gzipped GraphML    |  `graphmlz`                    `Graph.Read_GraphMLz`      `Graph.write_graphmlz`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
   LEDA                                                                        `leda`                        not supported yet                                         `Graph.write_leda`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
