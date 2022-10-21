@@ -30,7 +30,7 @@ It is possible to use *star imports* for igraph:
 But it is [generally discouraged](https://stackoverflow.com/questions/2386714/why-is-import-bad).
 
 
-There is a second way to start igraph, which is to call the script `igraph`{.interpreted-text role="command"} from your terminal:
+There is a second way to start igraph, which is to call the script `igraph` from your terminal:
 
     $ igraph
     No configuration file, using defaults
@@ -38,29 +38,21 @@ There is a second way to start igraph, which is to call the script `igraph`{.int
     Type "copyright", "credits" or "license" for more information.
     >>>
 
-::: note
-::: title
 Note
-:::
 
-Windows users will find the script inside the `scripts`{.interpreted-text role="file"} subdirectory of Python and might have to add it manually to their path.
-:::
+Windows users will find the script inside the `scripts` subdirectory of Python and might have to add it manually to their path.
 
 This script starts an appropriate shell ([IPython](https://ipython.readthedocs.io/en/stable/) or [IDLE](https://docs.python.org/3/library/idle.html) if found, otherwise a pure Python shell) and uses star imports (see above). This is sometimes convenient to play with igraph\'s functions.
 
-::: note
-::: title
 Note
-:::
 
 You can specify which shell should be used by this script via igraph\'s `configuration`{.interpreted-text role="doc"} file.
-:::
 
 This tutorial will assume you have imported igraph using the namespace `ig`.
 
 ## Creating a graph
 
-The simplest way to create a graph is the `Graph`{.interpreted-text role="class"} constructor. To make an empty graph:
+The simplest way to create a graph is the `Graph` constructor. To make an empty graph:
 
     >>> g = ig.Graph()
 
@@ -77,41 +69,34 @@ We can print the graph to get a summary of its nodes and edges:
 
 This means: **U** ndirected graph with **10** vertices and **2** edges, with the exact edges listed out. If the graph has a [name]{.title-ref} attribute, it is printed as well.
 
-::: note
-::: title
 Note
-:::
 
-`Graph.summary`{.interpreted-text role="meth"} is similar to `print` but does not list the edges, which is convenient for large graphs with millions of edges:
+`Graph.summary` is similar to `print` but does not list the edges, which is convenient for large graphs with millions of edges:
 
     >>> summary(g)
     IGRAPH U--- 10 2 --
-:::
 
 ## Adding/deleting vertices and edges
 
-Let\'s start from the empty graph again. To add vertices to an existing graph, use `Graph.add_vertices`{.interpreted-text role="meth"}:
+Let\'s start from the empty graph again. To add vertices to an existing graph, use `Graph.add_vertices`:
 
     >>> g = ig.Graph()
     >>> g.add_vertices(3)
 
 In igraph, vertices are always numbered up from zero. The number of a vertex is called the *vertex ID*. A vertex might or might not have a name.
 
-Similarly, to add edges use `Graph.add_edges`{.interpreted-text role="meth"}:
+Similarly, to add edges use `Graph.add_edges`:
 
     >>> g.add_edges([(0, 1), (1, 2)])
 
 Edges are added by specifying the source and target vertex for each edge. This call added two edges, one connecting vertices `0` and `1`, and one connecting vertices `1` and `2`. Edges are also numbered up from zero (the *edge ID*) and have an optional name.
 
-::: warning
-::: title
-Warning
-:::
 
-Creating an empty graph and adding vertices and edges as shown here can be much slower than creating a graph with its vertices and edges as demonstrated earlier. If speed is of concern, you should especially avoid adding vertices and edges *one at a time*. If you need to do it anyway, you can use `Graph.add_vertex`{.interpreted-text role="meth"} and `Graph.add_edge`{.interpreted-text role="meth"}.
-:::
+**Warning**
 
-If you try to add edges to vertices with invalid IDs (i.e., you try to add an edge to vertex `5` when the graph has only three vertices), you get an `igraph.InternalError`{.interpreted-text role="exc"} exception:
+Creating an empty graph and adding vertices and edges as shown here can be much slower than creating a graph with its vertices and edges as demonstrated earlier. If speed is of concern, you should especially avoid adding vertices and edges *one at a time*. If you need to do it anyway, you can use `Graph.add_vertex` and `Graph.add_edge`.
+
+If you try to add edges to vertices with invalid IDs (i.e., you try to add an edge to vertex `5` when the graph has only three vertices), you get an `igraph.InternalError` exception:
 
     >>> g.add_edges([(5, 4)])
     Traceback (most recent call last):
@@ -122,13 +107,9 @@ If you try to add edges to vertices with invalid IDs (i.e., you try to add an ed
 
 The message tries to explain what went wrong (`cannot add edges. -- Invalid vertex id`) along with the corresponding line in the source code where the error occurred.
 
-::: note
-::: title
 Note
-:::
 
 The whole traceback, including info on the source code, is useful when reporting bugs on our [GitHub issue page](https://github.com/igraph/python-igraph/issues). Please include it if you create a new issue!
-:::
 
 Let us add some more vertices and edges to our graph:
 
@@ -140,7 +121,7 @@ Let us add some more vertices and edges to our graph:
     + edges:
     0--1 1--2 0--2 2--3 3--4 4--5 3--5
 
-We now have an undirected graph with 6 vertices and 7 edges. Vertex and edge IDs are always *continuous*, so if you delete a vertex all subsequent vertices will be renumbered. When a vertex is renumbered, edges are **not** renumbered, but their source and target vertices will. Use `Graph.delete_vertices`{.interpreted-text role="meth"} and `Graph.delete_edges`{.interpreted-text role="meth"} to perform these operations. For instance, to delete the edge connecting vertices `2-3`, get its ID and then delete it:
+We now have an undirected graph with 6 vertices and 7 edges. Vertex and edge IDs are always *continuous*, so if you delete a vertex all subsequent vertices will be renumbered. When a vertex is renumbered, edges are **not** renumbered, but their source and target vertices will. Use `Graph.delete_vertices` and `Graph.delete_edges` to perform these operations. For instance, to delete the edge connecting vertices `2-3`, get its ID and then delete it:
 
     >>> g.get_eid(2, 3)
     3
@@ -148,37 +129,34 @@ We now have an undirected graph with 6 vertices and 7 edges. Vertex and edge IDs
 
 ## Generating graphs
 
-igraph includes both deterministic and stochastic graph generators (see `generation`{.interpreted-text role="doc"}). *Deterministic* generators produce the same graph every time you call the fuction, e.g.:
+igraph includes both deterministic and stochastic graph generators (see `generation`). *Deterministic* generators produce the same graph every time you call the fuction, e.g.:
 
     >>> g = ig.Graph.Tree(127, 2)
     >>> summary(g)
     IGRAPH U--- 127 126 --
 
-uses `Graph.Tree`{.interpreted-text role="meth"} to generate a regular tree graph with 127 vertices, each vertex having two children (and one parent, of course). No matter how many times you call `Graph.Tree`{.interpreted-text role="meth"}, the generated graph will always be the same if you use the same parameters:
+uses `Graph.Tree` to generate a regular tree graph with 127 vertices, each vertex having two children (and one parent, of course). No matter how many times you call `Graph.Tree`, the generated graph will always be the same if you use the same parameters:
 
     >>> g2 = ig.Graph.Tree(127, 2)
     >>> g2.get_edgelist() == g.get_edgelist()
     True
 
-The above code snippet also shows you that the `~Graph.get_edgelist()`{.interpreted-text role="meth"} method, which returns a list of source and target vertices for all edges, sorted by edge ID. If you print the first 10 elements, you get:
+The above code snippet also shows you that the `~Graph.get_edgelist()` method, which returns a list of source and target vertices for all edges, sorted by edge ID. If you print the first 10 elements, you get:
 
     >>> g2.get_edgelist()[:10]
     [(0, 1), (0, 2), (1, 3), (1, 4), (2, 5), (2, 6), (3, 7), (3, 8), (4, 9), (4, 10)]
 
-*Stochastic* generators produce a different graph each time, e.g. `Graph.GRG`{.interpreted-text role="meth"}:
+*Stochastic* generators produce a different graph each time, e.g. `Graph.GRG`:
 
     >>> g = ig.Graph.GRG(100, 0.2)
     >>> summary(g)
     IGRAPH U---- 100 516 --
     + attr: x (v), y (v)
 
-::: note
-::: title
 Note
-:::
 
 `+ attr` shows attributes for vertices (v) and edges (e), in this case two vertex attributes and no edge attributes.
-:::
+
 
 This generates a geometric random graph: *n* points are chosen randomly and uniformly inside the unit square and pairs of points closer to each other than a predefined distance *d* are connected by an edge. If you generate GRGs with the same parameters, they will be different:
 
@@ -186,7 +164,7 @@ This generates a geometric random graph: *n* points are chosen randomly and unif
     >>> g.get_edgelist() == g2.get_edgelist()
     False
 
-A slightly looser way to check if the graphs are equivalent is via `~Graph.isomorphic()`{.interpreted-text role="meth"}:
+A slightly looser way to check if the graphs are equivalent is via `~Graph.isomorphic()`:
 
     >>> g.isomorphic(g2)
     False
@@ -195,7 +173,7 @@ Checking for isomorphism can take a while for large graphs (in this case, the an
 
 ## Setting and retrieving attributes
 
-As mentioned above, in igraph each vertex and each edge have a numeric id from `0` upwards. Deleting vertices or edges can therefore cause reassignments of vertex and/or edge IDs. In addition to IDs, vertex and edges can have *attributes* such as a name, coordinates for plotting, metadata, and weights. The graph itself can have such attributes too (e.g. a name, which will show in `print` or `Graph.summary`{.interpreted-text role="meth"}). In a sense, every `Graph`{.interpreted-text role="class"}, vertex and edge can be used as a Python dictionary to store and retrieve these attributes.
+As mentioned above, in igraph each vertex and each edge have a numeric id from `0` upwards. Deleting vertices or edges can therefore cause reassignments of vertex and/or edge IDs. In addition to IDs, vertex and edges can have *attributes* such as a name, coordinates for plotting, metadata, and weights. The graph itself can have such attributes too (e.g. a name, which will show in `print` or `Graph.summary`). In a sense, every `Graph`, vertex and edge can be used as a Python dictionary to store and retrieve these attributes.
 
 To demonstrate the use of attributes, let us create a simple social network:
 
@@ -208,27 +186,27 @@ Each vertex represents a person, so we want to store names, ages and genders:
     >>> g.vs["gender"] = ["f", "m", "f", "m", "f", "m", "m"]
     >>> g.es["is_formal"] = [False, False, True, True, True, False, True, False, False]
 
-`Graph.vs`{.interpreted-text role="attr"} and `Graph.es`{.interpreted-text role="attr"} are the standard way to obtain a sequence of all vertices and edges, respectively. Just like a Python dictionary, we can set each property using square brackets. The value must be a list with the same length as the vertices (for `Graph.vs`{.interpreted-text role="attr"}) or edges (for `Graph.es`{.interpreted-text role="attr"}). This assigns an attribute to *all* vertices/edges at once.
+`Graph.vs` and `Graph.es` are the standard way to obtain a sequence of all vertices and edges, respectively. Just like a Python dictionary, we can set each property using square brackets. The value must be a list with the same length as the vertices (for `Graph.vs`) or edges (for `Graph.es`). This assigns an attribute to *all* vertices/edges at once.
 
 To assign or modify an attribute for a single vertex/edge, you can use indexing:
 
     >>> g.es[0]["is_formal"] = True
 
-In fact, a single vertex is represented via the class `Vertex`{.interpreted-text role="class"}, and a single edge via `Edge`{.interpreted-text role="class"}. Both of them plus `Graph`{.interpreted-text role="class"} can all be keyed like a dictionary to set attributes, e.g. to add a date to the graph:
+In fact, a single vertex is represented via the class `Vertex`, and a single edge via `Edge`. Both of them plus `Graph` can all be keyed like a dictionary to set attributes, e.g. to add a date to the graph:
 
     >>> g["date"] = "2009-01-10"
     >>> print(g["date"])
     2009-01-10
 
-To retrieve a dictionary of attributes, you can use `Graph.attributes`{.interpreted-text role="meth"}, `Vertex.attributes`{.interpreted-text role="meth"}, and `Edge.attributes`{.interpreted-text role="meth"}.
+To retrieve a dictionary of attributes, you can use `Graph.attributes`, `Vertex.attributes`, and `Edge.attributes`.
 
-Furthermore, each `Vertex`{.interpreted-text role="class"} has a special property, `Vertex.index`{.interpreted-text role="attr"}, that is used to find out the ID of a vertex. Each `Edge`{.interpreted-text role="class"} has `Edge.index`{.interpreted-text role="attr"} plus two additional properties, `Edge.source`{.interpreted-text role="attr"} and `Edge.target`{.interpreted-text role="attr"}, that are used to find the IDs of the vertices connected by this edge. To get both at once as a tuple, you can use `Edge.tuple`{.interpreted-text role="attr"}.
+Furthermore, each `Vertex` has a special property, `Vertex.index`, that is used to find out the ID of a vertex. Each `Edge` has `Edge.index` plus two additional properties, `Edge.source` and `Edge.target`, that are used to find the IDs of the vertices connected by this edge. To get both at once as a tuple, you can use `Edge.tuple`.
 
 To assign attributes to a subset of vertices or edges, you can use slicing:
 
     >>> g.es[:1]["is_formal"] = True
 
-The output of `g.es[:1]` is an instance of `~seq.EdgeSeq`{.interpreted-text role="class"}, whereas `~seq.VertexSeq`{.interpreted-text role="class"} is the equivalent class representing subsets of vertices.
+The output of `g.es[:1]` is an instance of `~seq.EdgeSeq`, whereas `~seq.VertexSeq` is the equivalent class representing subsets of vertices.
 
 To delete attributes, use the Python keyword `del`, e.g.:
 
@@ -241,41 +219,36 @@ To delete attributes, use the Python keyword `del`, e.g.:
       File "<stdin>", line 25, in <module>
     KeyError: 'Attribute does not exist'
 
-::: warning
-::: title
-Warning
-:::
+**Warning**
 
-Attributes can be arbitrary Python objects, but if you are saving graphs to a file, only string and numeric attributes will be kept. See the `pickle`{.interpreted-text role="mod"} module in the standard Python library if you are looking for a way to save other attribute types. You can either pickle your attributes individually, store them as strings and save them, or you can pickle the whole `Graph`{.interpreted-text role="class"} if you know that you want to load the graph back into Python only.
-:::
+
+Attributes can be arbitrary Python objects, but if you are saving graphs to a file, only string and numeric attributes will be kept. See the `pickle` module in the standard Python library if you are looking for a way to save other attribute types. You can either pickle your attributes individually, store them as strings and save them, or you can pickle the whole `Graph` if you know that you want to load the graph back into Python only.
+
 
 ## Structural properties of graphs
 
 Besides the simple graph and attribute manipulation routines described above, igraph provides a large set of methods to calculate various structural properties of graphs. It is beyond the scope of this tutorial to document all of them, hence this section will only introduce a few of them for illustrative purposes. We will work on the small social network we built in the previous section.
 
-Probably the simplest property one can think of is the `vertex degree`{.interpreted-text role="dfn"}. The degree of a vertex equals the number of edges adjacent to it. In case of directed networks, we can also define `in-degree`{.interpreted-text role="dfn"} (the number of edges pointing towards the vertex) and `out-degree`{.interpreted-text role="dfn"} (the number of edges originating from the vertex). igraph is able to calculate all of them using a simple syntax:
+Probably the simplest property one can think of is the `vertex degree`. The degree of a vertex equals the number of edges adjacent to it. In case of directed networks, we can also define `in-degree(the number of edges pointing towards the vertex) and `out-degree` (the number of edges originating from the vertex). igraph is able to calculate all of them using a simple syntax:
 
     >>> g.degree()
     [3, 1, 4, 3, 2, 3, 2]
 
-If the graph was directed, we would have been able to calculate the in- and out-degrees separately using `g.degree(mode="in")` and `g.degree(mode="out")`. You can also pass a single vertex ID or a list of vertex IDs to `~Graph.degree`{.interpreted-text role="meth"} if you want to calculate the degrees for only a subset of vertices:
+If the graph was directed, we would have been able to calculate the in- and out-degrees separately using `g.degree(mode="in")` and `g.degree(mode="out")`. You can also pass a single vertex ID or a list of vertex IDs to `~Graph.degree` if you want to calculate the degrees for only a subset of vertices:
 
     >>> g.degree(6)
     2
     >>> g.degree([2,3,4])
     [4, 3, 2]
 
-This calling convention applies to most of the structural properties igraph can calculate. For vertex properties, the methods accept a vertex ID or a list of vertex IDs (and if they are omitted, the default is the set of all vertices). For edge properties, the methods accept a single edge ID or a list of edge IDs. Instead of a list of IDs, you can also supply a `VertexSeq`{.interpreted-text role="class"} or an `EdgeSeq`{.interpreted-text role="class"} instance appropriately. Later in the `next chapter <querying_vertices_and_edges>`{.interpreted-text role="ref"}, you will learn how to restrict them to exactly the vertices or edges you want.
+This calling convention applies to most of the structural properties igraph can calculate. For vertex properties, the methods accept a vertex ID or a list of vertex IDs (and if they are omitted, the default is the set of all vertices). For edge properties, the methods accept a single edge ID or a list of edge IDs. Instead of a list of IDs, you can also supply a `VertexSeq` or an `EdgeSeq` instance appropriately. Later in the `next chapter <querying_vertices_and_edges>`, you will learn how to restrict them to exactly the vertices or edges you want.
 
-::: note
-::: title
+
 Note
-:::
 
-For some measures, it does not make sense to calculate them only for a few vertices or edges instead of the whole graph, as it would take the same time anyway. In this case, the methods won\'t accept vertex or edge IDs, but you can still restrict the resulting list later using standard list indexing and slicing operators. One such example is eigenvector centrality (`Graph.evcent()`{.interpreted-text role="meth"}).
-:::
+For some measures, it does not make sense to calculate them only for a few vertices or edges instead of the whole graph, as it would take the same time anyway. In this case, the methods won\'t accept vertex or edge IDs, but you can still restrict the resulting list later using standard list indexing and slicing operators. One such example is eigenvector centrality (`Graph.evcent()`).
 
-Besides degree, igraph includes built-in routines to calculate many other centrality properties, including vertex and edge betweenness (`Graph.betweenness <GraphBase.betweenness>`{.interpreted-text role="meth"}, `Graph.edge_betweenness <GraphBase.edge_betweenness>`{.interpreted-text role="meth"}) or Google\'s PageRank (`Graph.pagerank`{.interpreted-text role="meth"}) just to name a few. Here we just illustrate edge betweenness:
+Besides degree, igraph includes built-in routines to calculate many other centrality properties, including vertex and edge betweenness (`Graph.betweenness <GraphBase.betweenness>`, `Graph.edge_betweenness <GraphBase.edge_betweenness>`) or Google\'s PageRank (`Graph.pagerank`) just to name a few. Here we just illustrate edge betweenness:
 
     >>> g.edge_betweenness()
     [6.0, 6.0, 4.0, 2.0, 4.0, 3.0, 4.0, 3.0. 4.0]
@@ -287,7 +260,7 @@ Now we can also figure out which connections have the highest betweenness centra
     >>> [g.es[idx].tuple for idx, eb in enumerate(ebs) if eb == max_eb]
     [(0, 1), (0, 2)]
 
-Most structural properties can also be retrieved for a subset of vertices or edges or for a single vertex or edge by calling the appropriate method on the `VertexSeq`{.interpreted-text role="class"}, `EdgeSeq`{.interpreted-text role="class"}, `Vertex`{.interpreted-text role="class"} or `Edge`{.interpreted-text role="class"} object of interest:
+Most structural properties can also be retrieved for a subset of vertices or edges or for a single vertex or edge by calling the appropriate method on the `VertexSeq`, `EdgeSeq`, `Vertex` or `Edge` object of interest:
 
     >>> g.vs.degree()
     [3, 1, 4, 3, 2, 3, 2]
@@ -305,7 +278,7 @@ Imagine that in a given social network, you would like to find out who has the l
     >>> g.vs.select(_degree=g.maxdegree())["name"]
     ['Claire']
 
-The syntax may seem a little bit awkward for the first sight, so let\'s try to interpret it step by step. `~VertexSeq.select`{.interpreted-text role="meth"} is a method of `VertexSeq`{.interpreted-text role="class"} and its sole purpose is to filter a `VertexSeq`{.interpreted-text role="class"} based on the properties of individual vertices. The way it filters the vertices depends on its positional and keyword arguments. Positional arguments (the ones without an explicit name like `_degree` above) are always processed before keyword arguments as follows:
+The syntax may seem a little bit awkward for the first sight, so let\'s try to interpret it step by step. `~VertexSeq.select` is a method of `VertexSeq` and its sole purpose is to filter a `VertexSeq` based on the properties of individual vertices. The way it filters the vertices depends on its positional and keyword arguments. Positional arguments (the ones without an explicit name like `_degree` above) are always processed before keyword arguments as follows:
 
 -   If the first positional argument is `None`, an empty sequence (containing no vertices) is returned:
 
@@ -364,15 +337,12 @@ For instance, the following command gives you people younger than 30 years in ou
 
     >>> g.vs.select(age_lt=30)
 
-::: note
-::: title
+
 Note
-:::
 
 Due to the syntactical constraints of Python, you cannot use the admittedly simpler syntax of `g.vs.select(age < 30)` as only the equality operator is allowed to appear in an argument list in Python.
-:::
 
-To save you some typing, you can even omit the `~VertexSeq.select`{.interpreted-text role="meth"} method if you wish:
+To save you some typing, you can even omit the `~VertexSeq.select` method if you wish:
 
     >>> g.vs(age_lt=30)
 
@@ -382,21 +352,21 @@ Theoretically, it can happen that there exists an attribute and a structural pro
 
 There are also a few special structural properties for selecting edges:
 
--   Using `_source` or `_from` in the keyword argument list of `EdgeSeq.select`{.interpreted-text role="meth"} filters based on the source vertices of the edges. E.g., to select all the edges originating from Claire (who has vertex index 2):
+-   Using `_source` or `_from` in the keyword argument list of `EdgeSeq.select` filters based on the source vertices of the edges. E.g., to select all the edges originating from Claire (who has vertex index 2):
 
         >>> g.es.select(_source=2)
 
 -   Using `_target` or `_to` filters based on the target vertices. This is different from `_source` and `_from` if the graph is directed.
 
--   `_within` takes a `VertexSeq`{.interpreted-text role="class"} object or a list or set of vertex indices and selects all the edges that originate and terminate in the given vertex set. For instance, the following expression selects all the edges between Claire (vertex index 2), Dennis (vertex index 3) and Esther (vertex index 4):
+-   `_within` takes a `VertexSeq` object or a list or set of vertex indices and selects all the edges that originate and terminate in the given vertex set. For instance, the following expression selects all the edges between Claire (vertex index 2), Dennis (vertex index 3) and Esther (vertex index 4):
 
         >>> g.es.select(_within=[2,3,4])
 
-    We could also have used a `VertexSeq`{.interpreted-text role="class"} object:
+    We could also have used a `VertexSeq` object:
 
         >>> g.es.select(_within=g.vs[2:5])
 
--   `_between` takes a tuple consisting of two `VertexSeq`{.interpreted-text role="class"} objects or lists containing vertex indices or `Vertex`{.interpreted-text role="class"} objects and selects all the edges that originate in one of the sets and terminate in the other. E.g., to select all the edges that connect men to women:
+-   `_between` takes a tuple consisting of two `VertexSeq` objects or lists containing vertex indices or `Vertex` objects and selects all the edges that originate in one of the sets and terminate in the other. E.g., to select all the edges that connect men to women:
 
         >>> men = g.vs.select(gender="m")
         >>> women = g.vs.select(gender="f")
@@ -404,7 +374,7 @@ There are also a few special structural properties for selecting edges:
 
 ### Finding a single vertex or edge with some properties
 
-In many cases we are looking for a single vertex or edge of a graph with some properties, and either we do not care which one of the matches is returned if there are multiple matches, or we know in advance that there will be only one match. A typical example is looking up vertices by their names in the `name` property. `VertexSeq`{.interpreted-text role="class"} and `EdgeSeq`{.interpreted-text role="class"} objects provide the `~VertexSeq.find`{.interpreted-text role="meth"} method for such use-cases. `~VertexSeq.find`{.interpreted-text role="meth"} works similarly to `~VertexSeq.select`{.interpreted-text role="meth"}, but it returns only the first match if there are multiple matches, and throws an exception if no match is found. For instance, to look up the vertex corresponding to Claire, one can do this:
+In many cases we are looking for a single vertex or edge of a graph with some properties, and either we do not care which one of the matches is returned if there are multiple matches, or we know in advance that there will be only one match. A typical example is looking up vertices by their names in the `name` property. `VertexSeq` and `EdgeSeq` objects provide the `~VertexSeq.find` method for such use-cases. `~VertexSeq.find` works similarly to `~VertexSeq.select`, but it returns only the first match if there are multiple matches, and throws an exception if no match is found. For instance, to look up the vertex corresponding to Claire, one can do this:
 
     >>> claire = g.vs.find(name="Claire")
     >>> type(claire)
@@ -421,7 +391,7 @@ Looking up an unknown name will yield an exception:
 
 ### Looking up vertices by names
 
-Looking up vertices by names is a very common operation, and it is usually much easier to remember the names of the vertices in a graph than their IDs. To this end, igraph treats the `name` attribute of vertices specially; they are indexed such that vertices can be looked up by their names in amortized constant time. To make things even easier, igraph accepts vertex names (almost) anywhere where it expects vertex IDs, and also accepts collections (list, tuples etc) of vertex names anywhere where it expects lists of vertex IDs or `VertexSeq`{.interpreted-text role="class"} instances. E.g, you can simply look up the degree (number of connections) of Dennis as follows:
+Looking up vertices by names is a very common operation, and it is usually much easier to remember the names of the vertices in a graph than their IDs. To this end, igraph treats the `name` attribute of vertices specially; they are indexed such that vertices can be looked up by their names in amortized constant time. To make things even easier, igraph accepts vertex names (almost) anywhere where it expects vertex IDs, and also accepts collections (list, tuples etc) of vertex names anywhere where it expects lists of vertex IDs or `VertexSeq` instances. E.g, you can simply look up the degree (number of connections) of Dennis as follows:
 
     >>> g.degree("Dennis")
     3
@@ -454,17 +424,13 @@ For example, Claire (`[1, 0, 0, 1, 1, 1, 0]`) is directly connected to Alice (wh
 
 A graph is an abstract mathematical object without a specific representation in 2D or 3D space. This means that whenever we want to visualise a graph, we have to find a mapping from vertices to coordinates in two- or three-dimensional space first, preferably in a way that is pleasing for the eye. A separate branch of graph theory, namely graph drawing, tries to solve this problem via several graph layout algorithms. igraph implements quite a few layout algorithms and is also able to draw them onto the screen or to a PDF, PNG or SVG file using the [Cairo library](https://www.cairographics.org).
 
-::: important
-::: title
-Important
-:::
+**Important**
 
-To follow the examples of this subsection, you need the Python bindings of the Cairo library or matplotlib (depending on what backend is selected). The previous chapter (`installing-igraph`{.interpreted-text role="ref"}) tells you more about how to install Cairo\'s Python bindings.
-:::
+To follow the examples of this subsection, you need the Python bindings of the Cairo library or matplotlib (depending on what backend is selected). The previous chapter (`installing-igraph`) tells you more about how to install Cairo\'s Python bindings.
 
 ### Layout algorithms
 
-The layout methods in igraph are to be found in the `Graph`{.interpreted-text role="class"} object, and they always start with `layout_`. The following table summarises them:
+The layout methods in igraph are to be found in the `Graph` object, and they always start with `layout_`. The following table summarises them:
 
 +-------------------------------------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------+
 | Method name                                                             | Short name                           | Algorithm description                                                                                          |
@@ -518,17 +484,17 @@ The layout methods in igraph are to be found in the `Graph`{.interpreted-text ro
 | `layout_sphere`                                                         | `sphere`, `spherical`, `circular_3d` | Deterministic layout that places the vertices evenly on the surface of a sphere                                |
 +-------------------------------------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------+
 
-Layout algorithms can either be called directly or using the common layout method called `~Graph.layout`{.interpreted-text role="meth"}:
+Layout algorithms can either be called directly or using the common layout method called `~Graph.layout`:
 
     >>> layout = g.layout_kamada_kawai()
     >>> layout = g.layout("kamada_kawai")
 
-The first argument of the `~Graph.layout`{.interpreted-text role="meth"} method must be the short name of the layout algorithm (see the table above). All the remaining positional and keyword arguments are passed intact to the chosen layout method. For instance, the following two calls are completely equivalent:
+The first argument of the `~Graph.layout` method must be the short name of the layout algorithm (see the table above). All the remaining positional and keyword arguments are passed intact to the chosen layout method. For instance, the following two calls are completely equivalent:
 
     >>> layout = g.layout_reingold_tilford(root=[2])
     >>> layout = g.layout("rt", [2])
 
-Layout methods return a `~layout.Layout`{.interpreted-text role="class"} object which behaves mostly like a list of lists. Each list entry in a `~layout.Layout`{.interpreted-text role="class"} object corresponds to a vertex in the original graph and contains the vertex coordinates in the 2D or 3D space. `~layout.Layout`{.interpreted-text role="class"} objects also contain some useful methods to translate, scale or rotate the coordinates in a batch. However, the primary utility of `~layout.Layout`{.interpreted-text role="class"} objects is that you can pass them to the `~drawing.plot`{.interpreted-text role="func"} function along with the graph to obtain a 2D drawing.
+Layout methods return a `~layout.Layout` object which behaves mostly like a list of lists. Each list entry in a `~layout.Layout` object corresponds to a vertex in the original graph and contains the vertex coordinates in the 2D or 3D space. `~layout.Layout` objects also contain some useful methods to translate, scale or rotate the coordinates in a batch. However, the primary utility of `~layout.Layout` objects is that you can pass them to the `~drawing.plot` function along with the graph to obtain a 2D drawing.
 
 ### Drawing a graph using a layout
 
@@ -565,12 +531,12 @@ and for matplotlib:
 
 ![Our social network - with names as labels and genders as colors](figures/tutorial_social_network_2_mpl.png){.align-center}
 
-Instead of specifying the visual properties as vertex and edge attributes, you can also give them as keyword arguments to `~drawing.plot`{.interpreted-text role="func"}:
+Instead of specifying the visual properties as vertex and edge attributes, you can also give them as keyword arguments to `~drawing.plot`:
 
     >>> color_dict = {"m": "blue", "f": "pink"}
     >>> ig.plot(g, layout=layout, vertex_color=[color_dict[gender] for gender in g.vs["gender"]])
 
-This latter approach is preferred if you want to keep the properties of the visual representation of your graph separate from the graph itself. You can simply set up a Python dictionary containing the keyword arguments you would pass to `~drawing.plot`{.interpreted-text role="func"} and then use the double asterisk (`**`) operator to pass your specific styling attributes to `~drawing.plot`{.interpreted-text role="func"}:
+This latter approach is preferred if you want to keep the properties of the visual representation of your graph separate from the graph itself. You can simply set up a Python dictionary containing the keyword arguments you would pass to `~drawing.plot` and then use the double asterisk (`**`) operator to pass your specific styling attributes to `~drawing.plot`:
 
     >>> visual_style = {}
     >>> visual_style["vertex_size"] = 20
@@ -586,7 +552,7 @@ The final plot shows the formal ties with thick lines while informal ones with t
 
 ![Our social network - also showing which ties are formal](figures/tutorial_social_network_3.png){.align-center}
 
-To sum it all up: there are special vertex and edge properties that correspond to the visual representation of the graph. These attributes override the default settings of igraph (see `configuration`{.interpreted-text role="doc"} for overriding the system-wide defaults). Furthermore, appropriate keyword arguments supplied to `~drawing.plot`{.interpreted-text role="func"} override the visual properties provided by the vertex and edge attributes. The following two tables summarise the most frequently used visual attributes for vertices and edges, respectively:
+To sum it all up: there are special vertex and edge properties that correspond to the visual representation of the graph. These attributes override the default settings of igraph (see `configuration`for overriding the system-wide defaults). Furthermore, appropriate keyword arguments supplied to `~drawing.plot` override the visual properties provided by the vertex and edge attributes. The following two tables summarise the most frequently used visual attributes for vertices and edges, respectively:
 
 ### Vertex attributes controlling graph plots
 
@@ -608,7 +574,7 @@ To sum it all up: there are special vertex and edge properties that correspond t
   \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
   `order`                         `vertex_order`                                Drawing order of the vertices. Vertices with a smaller order parameter will be drawn first.
   \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `shape`                         `vertex_shape`                                Shape of the vertex. Known shapes are: `rectangle`, `circle`, `hidden`, `triangle-up`, `triangle-down`. Several aliases are also accepted, see `drawing.known_shapes`{.interpreted-text role="data"}.
+  `shape`                         `vertex_shape`                                Shape of the vertex. Known shapes are: `rectangle`, `circle`, `hidden`, `triangle-up`, `triangle-down`. Several aliases are also accepted, see `drawing.known_shapes`.
   \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
   `size`                          `vertex_size`                                 Size of the vertex in pixels
 
@@ -618,7 +584,7 @@ To sum it all up: there are special vertex and edge properties that correspond t
   ------------------------------- --------------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
   `color`                         `edge_color`                                  Color of the edge
   \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `curved`                        `edge_curved`                                 The curvature of the edge. Positive values correspond to edges curved in CCW direction, negative numbers correspond to edges curved in clockwise (CW) direction. Zero represents straight edges. `True` is interpreted as 0.5, `False` is interpreted as zero. This is useful to make multiple edges visible. See also the `autocurve` keyword argument to `~drawing.plot`{.interpreted-text role="func"}.
+  `curved`                        `edge_curved`                                 The curvature of the edge. Positive values correspond to edges curved in CCW direction, negative numbers correspond to edges curved in clockwise (CW) direction. Zero represents straight edges. `True` is interpreted as 0.5, `False` is interpreted as zero. This is useful to make multiple edges visible. See also the `autocurve` keyword argument to `~drawing.plot`.
   \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
   `font`                          `edge_font`                                   Font family of the edge
   \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
@@ -636,7 +602,7 @@ To sum it all up: there are special vertex and edge properties that correspond t
 
 ### Generic keyword arguments of `plot()`
 
-These settings can be specified as keyword arguments to the `~drawing.plot`{.interpreted-text role="func"} function to control the overall appearance of the plot.
+These settings can be specified as keyword arguments to the `~drawing.plot` function to control the overall appearance of the plot.
 
   Keyword argument                  Purpose
   --------------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -644,7 +610,7 @@ These settings can be specified as keyword arguments to the `~drawing.plot`{.int
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
   `bbox`                            The bounding box of the plot. This must be a tuple containing the desired width and height of the plot. The default plot is 600 pixels wide and 600 pixels high.
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `layout`                          The layout to be used. It can be an instance of `~layout.Layout`{.interpreted-text role="class"}, a list of tuples containing X-Y coordinates, or the name of a layout algorithm. The default is `auto`, which selects a layout algorithm automatically based on the size and connectedness of the graph.
+  `layout`                          The layout to be used. It can be an instance of `~layout.Layout`, a list of tuples containing X-Y coordinates, or the name of a layout algorithm. The default is `auto`, which selects a layout algorithm automatically based on the size and connectedness of the graph.
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
   `margin`                          The top, right, bottom and left margins of the plot in pixels. This argument must be a list or tuple and its elements will be re-used if you specify a list or tuple with less than four elements.
 
@@ -670,7 +636,7 @@ Lists or tuples of RGB values in the range 0-1
 
 ### Saving plots
 
-igraph can be used to create publication-quality plots by asking the `~drawing.plot`{.interpreted-text role="func"} function to save the plot into a file instead of showing it on a screen. This can be done simply by passing the target filename as an additional argument after the graph itself. The preferred format is inferred from the extension. igraph can save to anything that is supported by Cairo, including SVG, PDF and PNG files. SVG or PDF files can then later be converted to PostScript (`.ps`) or Encapsulated PostScript (`.eps`) format if you prefer that, while PNG files can be converted to TIF (`.tif`):
+igraph can be used to create publication-quality plots by asking the `~drawing.plot` function to save the plot into a file instead of showing it on a screen. This can be done simply by passing the target filename as an additional argument after the graph itself. The preferred format is inferred from the extension. igraph can save to anything that is supported by Cairo, including SVG, PDF and PNG files. SVG or PDF files can then later be converted to PostScript (`.ps`) or Encapsulated PostScript (`.eps`) format if you prefer that, while PNG files can be converted to TIF (`.tif`):
 
     >>> ig.plot(g, "social_network.pdf", **visual_style)
 
@@ -684,37 +650,37 @@ Many file formats are supported by matplotlib.
 
 ## igraph and the outside world
 
-No graph module would be complete without some kind of import/export functionality that enables the package to communicate with external programs and toolkits. igraph is no exception: it provides functions to read the most common graph formats and to save `Graph`{.interpreted-text role="class"} objects into files obeying these format specifications. The following table summarises the formats igraph can read or write:
+No graph module would be complete without some kind of import/export functionality that enables the package to communicate with external programs and toolkits. igraph is no exception: it provides functions to read the most common graph formats and to save `Graph` objects into files obeying these format specifications. The following table summarises the formats igraph can read or write:
 
   Format                                                                      Short name                    Reader method                                             Writer method
   --------------------------------------------------------------------------- ----------------------------- --------------------------------------------------------- -----------------------------------------------------------
-  Adjacency list (a.k.a. [LGL](https://lgl.sourceforge.net/#FileFormat))      `lgl`                         `Graph.Read_Lgl`{.interpreted-text role="meth"}           `Graph.write_lgl`{.interpreted-text role="meth"}
+  Adjacency list (a.k.a. [LGL](https://lgl.sourceforge.net/#FileFormat))      `lgl`                         `Graph.Read_Lgl`           `Graph.write_lgl`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Adjacency matrix                                                            `adjacency`                   `Graph.Read_Adjacency`{.interpreted-text role="meth"}     `Graph.write_adjacency`{.interpreted-text role="meth"}
+  Adjacency matrix                                                            `adjacency`                   `Graph.Read_Adjacency`     `Graph.write_adjacency`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  DIMACS                                                                      `dimacs`                      `Graph.Read_DIMACS`{.interpreted-text role="meth"}        `Graph.write_dimacs`{.interpreted-text role="meth"}
+  DIMACS                                                                      `dimacs`                      `Graph.Read_DIMACS`        `Graph.write_dimacs`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  DL                                                                          `dl`                          `Graph.Read_DL`{.interpreted-text role="meth"}            not supported yet
+  DL                                                                          `dl`                          `Graph.Read_DL`            not supported yet
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Edge list                                                                   `edgelist`, `edges`, `edge`   `Graph.Read_Edgelist`{.interpreted-text role="meth"}      `Graph.write_edgelist`{.interpreted-text role="meth"}
+  Edge list                                                                   `edgelist`, `edges`, `edge`   `Graph.Read_Edgelist`      `Graph.write_edgelist`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  [GraphViz](https://www.graphviz.org)                                        `graphviz`, `dot`             not supported yet                                         `Graph.write_dot`{.interpreted-text role="meth"}
+  [GraphViz](https://www.graphviz.org)                                        `graphviz`, `dot`             not supported yet                                         `Graph.write_dot`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  GML                                                                         `gml`                         `Graph.Read_GML`{.interpreted-text role="meth"}           `Graph.write_gml`{.interpreted-text role="meth"}
+  GML                                                                         `gml`                         `Graph.Read_GML`          `Graph.write_gml`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  GraphML                                                                     `graphml`                     `Graph.Read_GraphML`{.interpreted-text role="meth"}       `Graph.write_graphml`{.interpreted-text role="meth"}
+  GraphML                                                                     `graphml`                     `Graph.Read_GraphML`       `Graph.write_graphml`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Gzipped GraphML                                                             `graphmlz`                    `Graph.Read_GraphMLz`{.interpreted-text role="meth"}      `Graph.write_graphmlz`{.interpreted-text role="meth"}
+  Gzipped GraphML                                                             `graphmlz`                    `Graph.Read_GraphMLz`      `Graph.write_graphmlz`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  LEDA                                                                        `leda`                        not supported yet                                         `Graph.write_leda`{.interpreted-text role="meth"}
+  LEDA                                                                        `leda`                        not supported yet                                         `Graph.write_leda`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Labeled edgelist (a.k.a. [NCOL](https://lgl.sourceforge.net/#FileFormat))   `ncol`                        `Graph.Read_Ncol`{.interpreted-text role="meth"}          `Graph.write_ncol`{.interpreted-text role="meth"}
+  Labeled edgelist (a.k.a. [NCOL](https://lgl.sourceforge.net/#FileFormat))   `ncol`                        `Graph.Read_Ncol`         `Graph.write_ncol`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) format                           `pajek`, `net`                `Graph.Read_Pajek`{.interpreted-text role="meth"}         `Graph.write_pajek`{.interpreted-text role="meth"}
+  [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) format                           `pajek`, `net`                `Graph.Read_Pajek`         `Graph.write_pajek`
   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Pickled graph                                                               `pickle`                      `Graph.Read_Pickle`{.interpreted-text role="meth"}        `Graph.write_pickle`{.interpreted-text role="meth"}
+  Pickled graph                                                               `pickle`                      `Graph.Read_Pickle`        `Graph.write_pickle`
 
-As an exercise, download the graph representation of the well-known [Zachary karate club study](https://en.wikipedia.org/wiki/Zachary%27s_karate_club) from `this file </assets/zachary.zip>`{.interpreted-text role="download"}, unzip it and try to load it into igraph. Since it is a GraphML file, you must use the GraphML reader method from the table above (make sure you use the appropriate path to the downloaded file):
+As an exercise, download the graph representation of the well-known [Zachary karate club study](https://en.wikipedia.org/wiki/Zachary%27s_karate_club) from `this file </assets/zachary.zip>`, unzip it and try to load it into igraph. Since it is a GraphML file, you must use the GraphML reader method from the table above (make sure you use the appropriate path to the downloaded file):
 
     >>> karate = ig.Graph.Read_GraphML("zachary.graphml")
     >>> ig.summary(karate)
@@ -724,15 +690,11 @@ If you want to convert the very same graph into, say, Pajek\'s format, you can d
 
     >>> karate.write_pajek("zachary.net")
 
-::: note
-::: title
 Note
-:::
 
 Most of the formats have their own limitations; for instance, not all of them can store attributes. Your best bet is probably GraphML or GML if you want to save igraph graphs in a format that can be read from an external package and you want to preserve numeric and string attributes. Edge list and NCOL is also fine if you don\'t have attributes (NCOL supports vertex names and edge weights, though). If you don\'t want to use your graphs outside igraph but you want to store them for a later session, the pickled graph format ensures that you get exactly the same graph back. The pickled graph format uses Python\'s `pickle` module to store and read graphs.
-:::
 
-There are two helper methods as well: `read`{.interpreted-text role="func"} is a generic entry point for reader methods which tries to infer the appropriate format from the file extension. `Graph.write`{.interpreted-text role="meth"} is the opposite of `read`{.interpreted-text role="func"}: it lets you save a graph where the preferred format is again inferred from the extension. The format detection of `read`{.interpreted-text role="func"} and `Graph.write`{.interpreted-text role="meth"} can be overridden by the `format` keyword argument which accepts the short names of the formats from the above table:
+There are two helper methods as well: `read` is a generic entry point for reader methods which tries to infer the appropriate format from the file extension. `Graph.write` is the opposite of `read`: it lets you save a graph where the preferred format is again inferred from the extension. The format detection of `read` and `Graph.write` can be overridden by the `format` keyword argument which accepts the short names of the formats from the above table:
 
     >>> karate = ig.load("zachary.graphml")
     >>> karate.write("zachary.net")
@@ -741,4 +703,3 @@ There are two helper methods as well: `read`{.interpreted-text role="func"} is a
 ## Where to go next
 
 This tutorial was only scratching the surface of what igraph can do. My long-term plans are to extend this tutorial into a proper manual-style documentation to igraph in the next chapters. In the meanwhile, check out the `api/index`{.interpreted-text role="doc"} which should provide information about almost every igraph class, function or method. A good starting point is the documentation of the `Graph`{.interpreted-text role="class"} class. Should you get stuck, try asking in our [Discourse group](https://igraph.discourse.group) first - maybe there is someone out there who can help you out immediately.
-:::
