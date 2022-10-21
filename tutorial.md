@@ -538,39 +538,28 @@ To sum it all up: there are special vertex and edge properties that correspond t
 
 ### Edge attributes controlling graph plots
 
-  Attribute name                  Keyword argument                              Purpose
-  ------------------------------- --------------------------------------------- ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  `color`                         `edge_color`                                  Color of the edge
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `curved`                        `edge_curved`                                 The curvature of the edge. Positive values correspond to edges curved in CCW direction, negative numbers correspond to edges curved in clockwise (CW) direction. Zero represents straight edges. `True` is interpreted as 0.5, `False` is interpreted as zero. This is useful to make multiple edges visible. See also the `autocurve` keyword argument to `~drawing.plot`.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `font`                          `edge_font`                                   Font family of the edge
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `arrow_size`                    `edge_arrow_size`                             Size (length) of the arrowhead on the edge if the graph is directed, relative to 15 pixels.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `arrow_width`                   `edge_arrow_width`                            Width of the arrowhead on the edge if the graph is directed, relative to 10 pixels.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `width`                         `edge_width`                                  Width of the edge in pixels
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `label`                         `edge_label`                                  If specified, it adds a label to the edge.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `background`                    `edge_background`                             If specified, it adds a rectangular box around the edge label, of the specified color (matplotlib only).
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `align_label`                   `edge_align_label`                            If True, rotate the edge label such that it aligns with the edge direction. Labels that would be upside-down are flipped (matplotlib only).
+ | Attribute name    |              Keyword argument      |    Purpose |
+|-----------|-------------|------|
+|  `color`   |    `edge_color`      |      Color of the edge |
+|  `curved`    |     `edge_curved`     |       The curvature of the edge. Positive values correspond to edges curved in CCW direction, negative numbers correspond to edges curved in clockwise (CW) direction. Zero represents straight edges. `True` is interpreted as 0.5, `False` is interpreted as zero. This is useful to make multiple edges visible. See also the `autocurve` keyword argument to `~drawing.plot`. |
+| `font`  |  `edge_font`    |         Font family of the edge |
+| `arrow_size`            |        `edge_arrow_size`            |     Size (length) of the arrowhead on the edge if the graph is directed, relative to 15 pixels. |
+|`arrow_width`    |     `edge_arrow_width`    |       Width of the arrowhead on the edge if the graph is directed, relative to 10 pixels. |
+|  `width`         |                `edge_width`                  |                Width of the edge in pixels |
+|  `label`          |               `edge_label`        |                          If specified, it adds a label to the edge. |
+|  `background`      |              `edge_background`      |                       If specified, it adds a rectangular box around the edge label, of the specified color (matplotlib only). |
+| `align_label`        |           `edge_align_label`     |                       If True, rotate the edge label such that it aligns with the edge direction. Labels that would be upside-down are flipped (matplotlib only). |
 
 ### Generic keyword arguments of `plot()`
 
 These settings can be specified as keyword arguments to the `~drawing.plot` function to control the overall appearance of the plot.
 
-  Keyword argument                  Purpose
-  --------------------------------- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  `autocurve`                       Whether to determine the curvature of the edges automatically in graphs with multiple edges. The default is `True` for graphs with less than 10.000 edges and `False` otherwise.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `bbox`                            The bounding box of the plot. This must be a tuple containing the desired width and height of the plot. The default plot is 600 pixels wide and 600 pixels high.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `layout`                          The layout to be used. It can be an instance of `~layout.Layout`, a list of tuples containing X-Y coordinates, or the name of a layout algorithm. The default is `auto`, which selects a layout algorithm automatically based on the size and connectedness of the graph.
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `margin`                          The top, right, bottom and left margins of the plot in pixels. This argument must be a list or tuple and its elements will be re-used if you specify a list or tuple with less than four elements.
+|  Keyword argument   |       Purpose   |
+|----|-----|
+|  `autocurve`   |    Whether to determine the curvature of the edges automatically in graphs with multiple edges. The default is `True` for graphs with less than 10.000 edges and `False` otherwise. |
+|  `bbox`    | The bounding box of the plot. This must be a tuple containing the desired width and height of the plot. The default plot is 600 pixels wide and 600 pixels high. |
+|  `layout`           |               The layout to be used. It can be an instance of `~layout.Layout`, a list of tuples containing X-Y coordinates, or the name of a layout algorithm. The default is `auto`, which selects a layout algorithm automatically based on the size and connectedness of the graph. |
+|  `margin`           |       The top, right, bottom and left margins of the plot in pixels. This argument must be a list or tuple and its elements will be re-used if you specify a list or tuple with less than four elements. |
 
 ### Specifying colors in plots
 
@@ -621,15 +610,11 @@ No graph module would be complete without some kind of import/export functionali
  | [GraphViz](https://www.graphviz.org)   |    `graphviz`, `dot`      |       not supported yet     |         `Graph.write_dot` |
  | GML   |   `gml`   |    `Graph.Read_GML`  |  `Graph.write_gml` |
  | GraphML  |    `graphml`   |        `Graph.Read_GraphML`   |    `Graph.write_graphml` |
- |Gzipped GraphML    |  `graphmlz`                    `Graph.Read_GraphMLz`      `Graph.write_graphmlz`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  LEDA                                                                        `leda`                        not supported yet                                         `Graph.write_leda`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Labeled edgelist (a.k.a. [NCOL](https://lgl.sourceforge.net/#FileFormat))   `ncol`                        `Graph.Read_Ncol`         `Graph.write_ncol`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) format                           `pajek`, `net`                `Graph.Read_Pajek`         `Graph.write_pajek`
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--                                             \-\-\-\-\-\-\-\-\-\-\-\--     \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  Pickled graph                                                               `pickle`                      `Graph.Read_Pickle`        `Graph.write_pickle`
+ |Gzipped GraphML    |  `graphmlz`     |     `Graph.Read_GraphMLz`   |   `Graph.write_graphmlz` |
+ | LEDA     |         `leda`       |    not supported yet    |       `Graph.write_leda` |
+ | Labeled edgelist (a.k.a. [NCOL](https://lgl.sourceforge.net/#FileFormat))  | `ncol`     |                   `Graph.Read_Ncol`     |    `Graph.write_ncol` |
+ | [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) format   |     `pajek`, `net`   | `Graph.Read_Pajek`   |   `Graph.write_pajek` |
+ | Pickled graph    |      `pickle`     |        `Graph.Read_Pickle`    |    `Graph.write_pickle` |
 
 As an exercise, download the graph representation of the well-known [Zachary karate club study](https://en.wikipedia.org/wiki/Zachary%27s_karate_club) from `this file </assets/zachary.zip>`, unzip it and try to load it into igraph. Since it is a GraphML file, you must use the GraphML reader method from the table above (make sure you use the appropriate path to the downloaded file):
 
