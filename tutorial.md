@@ -315,23 +315,18 @@ The syntax may seem a little bit awkward for the first sight, so let\'s try to i
 
 Keyword arguments can be used to filter the vertices based on their attributes or their structural properties. The name of each keyword argument should consist of at most two parts: the name of the attribute or structural property and the filtering operator. The operator can be omitted; in that case, we automatically assume the equality operator. The possibilities are as follows (where *name* denotes the name of the attribute or property):
 
-  Keyword argument                  Meaning
-  --------------------------------- -------------------------------------------------------------------------------------------------------------------------------------
-  `name_eq`                         The attribute/property value must be *equal to* the value of the keyword argument
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `name_ne`                         The attribute/property value must *not be equal to* the value of the keyword argument
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `name_lt`                         The attribute/property value must be *less than* the value of the keyword argument
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `name_le`                         The attribute/property value must be *less than or equal to* the value of the keyword argument
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `name_gt`                         The attribute/property value must be *greater than* the value of the keyword argument
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `name_ge`                         The attribute/property value must be *greater than or equal to* the value of the keyword argument
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `name_in`                         The attribute/property value must be *included in* the value of the keyword argument, which must be a sequence in this case
-  \-\-\-\-\-\-\-\-\-\-\-\-\-\-\--   \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
-  `name_notin`                      The attribute/property value must *not be included in* the value of the the keyword argument, which must be a sequence in this case
+| Keyword argument | Meaning                                                                                                                             |
+|------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| `name_eq`        | The attribute/property value must be *equal to* the value of the keyword argument                                                   |
+| `name_ne`        | The attribute/property value must *not be equal to* the value of the keyword argument                                               |
+| `name_lt`        | The attribute/property value must be *less than* the value of the keyword argument                                                  |
+| `name_le`        | The attribute/property value must be *less than or equal to* the value of the keyword argument                                      |
+| `name_gt`        | The attribute/property value must be *greater than* the value of the keyword argument                                               |
+| `name_ge`        | The attribute/property value must be *greater than or equal to* the value of the keyword argument                                   |
+| `name_in`        | The attribute/property value must be *included in* the value of the keyword argument, which must be a sequence in this case         |
+| `name_notin`     | The attribute/property value must *not be included in* the value of the the keyword argument, which must be a sequence in this case |
+  
+
 
 For instance, the following command gives you people younger than 30 years in our imaginary social network:
 
