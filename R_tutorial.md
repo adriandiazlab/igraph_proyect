@@ -460,7 +460,42 @@ This should open an external image viewer showing a visual representation of the
 
 ![alt text](https://github.com/adriandiazlab/igraph_proyect/blob/main/Images/tutorial_social_network_R_1.png?raw=true)
 
+Our social network with the Kamada-Kawai layout algorithm
 
+Hmm, this is not too pretty so far. A trivial addition would be to use the names as the vertex labels and to color the vertices according to the gender. Vertex labels are taken from the `label` attribute by default and vertex colors are determined by the `color` attribute. For the first example, it is important to take into account that the attributes that we select as a condition (i.e gender) to select a color are integers and not strings.
+
+So we can simply create these attributes and re-plot the graph:
+
+V(gi)$gender_num <- c(1,2,1,2,1,2,2)
+colors <- c("yellow", "red")
+V(gi)$color <- colors[V(gi)$gender_num]
+plot(gi, layout = layout)
+
+Anothers ways to approach this example:
+
+	> V(gi)$color <- ifelse(V(gi)$gender == "m", "red","yellow")
+	> plot(gi, layout = layout)
+
+	> plot(gi, layout= layout, vertex.color=as.factor(V(gi)$gender))
+	
+	> plot(gi, layout= layout, vertex.color=c( "yellow", "red")[1+(V(gi)$gender == "f")])
+
+The result is:
+
+![alt text](https://github.com/adriandiazlab/igraph_proyect/blob/main/Images/tutorial_social_network_R_2.png?raw=true)
+
+Our social network - with names as labels and genders as colors
+
+Instead of specifying the visual properties as vertex and edge attributes, you can also give them as arguments to `plot`:
+
+	> plot(gi, layout =layout, vertex.size = 20, margin = 0.5,
+	       vertex.color=c( "red", "yellow")[1+(V(gi)$gender == "m")], 
+	       edge.width=c(1,3)[1+(E(gi)$is_formal == TRUE)],
+	       )
+
+This latter approach is preferred if you want to keep the properties of the visual representation of your graph separate from the graph itself. The final plot shows the formal ties with thick lines while informal ones with thin lines:
+
+![alt text](https://github.com/adriandiazlab/igraph_proyect/blob/main/Images/tutorial_social_network_R_3.png?raw=true)
 
 
 
