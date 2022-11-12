@@ -443,8 +443,8 @@ Layout algorithms can either be called directly:
 
 For instance, the following two calls are completely equivalent:
 
-layout <- layout.reingold.tilford(gi, root= 2)
-layout <- layout_as_tree(gi, root = 2)
+	> layout <- layout.reingold.tilford(gi, root= 2)
+	> layout <- layout_as_tree(gi, root = 2)
 
 Layout methods return a `Layout` object which behaves mostly like a list of lists. Each list entry in a `Layout` object corresponds to a vertex in the original graph and contains the vertex coordinates in the 2D or 3D space. `Layout` objects also contain some useful methods to translate, scale or rotate the coordinates in a batch. However, the primary utility of `Layout` objects is that you can pass them to the `plot` function along with the graph to obtain a 2D drawing.
 
