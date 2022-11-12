@@ -466,10 +466,10 @@ Hmm, this is not too pretty so far. A trivial addition would be to use the names
 
 So we can simply create these attributes and re-plot the graph:
 
-V(gi)$gender_num <- c(1,2,1,2,1,2,2)
-colors <- c("yellow", "red")
-V(gi)$color <- colors[V(gi)$gender_num]
-plot(gi, layout = layout)
+	> V(gi)$gender_num <- c(1,2,1,2,1,2,2)
+	> colors <- c("yellow", "red")
+	> V(gi)$color <- colors[V(gi)$gender_num]
+	> plot(gi, layout = layout)
 
 Anothers ways to approach this example:
 
