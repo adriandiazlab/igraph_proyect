@@ -39,7 +39,7 @@ Let\'s start from the empty graph again. To add vertices to an existing graph, u
 	
 In igraph, vertices are always numbered up from one. The number of a vertex is called the *vertex ID*. A vertex might or might not have a name.
 
-Similarly, to add edges use `add_edges`:
+Similarly, to add vertices use `add_edges`:
 
 	> gi <- add_edges(gi, edges = c(1,2, 1,3))
 	
