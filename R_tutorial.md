@@ -315,7 +315,7 @@ Operators can be used to filter the vertices based on their attributes or their 
 The possibilities are as follows:
 
 | Operator | Meaning                                                                                                                             |
-|------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+|----|----|
 | `==`        | The attribute/property value must be *equal to*                                                    |
 | `!=`        | The attribute/property value must *not be equal to*                                                |
 | `<`        | The attribute/property value must be *less than*                                                   |
@@ -323,7 +323,7 @@ The possibilities are as follows:
 | `>`        | The attribute/property value must be *greater than*                                          |
 | `>=`        | The attribute/property value must be *greater than or equal to*                                |
 | `%in%`        | The attribute/property value must be *included in*         |
-| `\`%notin%\` <- Negate(\`%in%\`)`     | The attribute/property value must *not be included in*  |
+| `%notin% <- Negate(%in%)`     | The attribute/property value must *not be included in*  |
   
 
 Theoretically, it can happen that there exists an attribute and a structural property with the same name (e.g., you could have a vertex attribute named `degree`). In that case, just be careful to reference the attribute correctly and then call the function to calculate the structural property. For instance, we create a new attribute called degree:
@@ -453,8 +453,8 @@ Layout methods return a `Layout` object which behaves mostly like a list of list
 
 For instance, we can plot our imaginary social network with the Kamada-Kawai layout algorithm as follows:
 
-    >>> layout = g.layout("kk")
-    >>> ig.plot(g, layout=layout)
+	> layout <- layout_with_kk(gi)
+	> plot(gi, layout = layout)
 
 This should open an external image viewer showing a visual representation of the network, something like the one on the following figure (although the exact placement of nodes may be different on your machine since the layout is not deterministic):
 
