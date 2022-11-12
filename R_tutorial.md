@@ -266,8 +266,8 @@ Most structural properties can also be retrieved for a subset of vertices or edg
 Imagine that in a given social network (use the original example), you would like to find out who has the largest degree or betweenness centrality. You can do that with the tools presented so far and some basic R knowledge:
 
 	> which.max(degree(gi))
-	Claire 
-     	3 
+	Claire
+	3 
 
 
 <!---
@@ -279,6 +279,186 @@ Another way to do it is:
 But this solution was obtained from stackoverflow 
 -->
 
+[comment]: # (The next paragraphs are not well related with the method that I used in R I think)
+
+If the first positional argument is a callable object (i.e., a function, a bound method or anything that behaves like a function), the object will be called for every vertex that\'s currently in the sequence. If the function returns `True`, the vertex will be included, otherwise it will be excluded:
+ 
+	> graph <- graph.full(n=10)
+	> only_odd_vertices <- which(V(graph)%%2==1)
+	>  length(only_odd_vertices)
+	[1] 5
+
+If the first positional argument is an iterable (i.e., a list, a generator or anything that can be iterated over), it *must* return integers and these integers will be considered as indices into the current vertex set (which is *not* necessarily the whole graph). Only those vertices that match the given indices will be included in the filtered vertex set. Floats, strings, invalid vertex IDs will display an error message:
+
+	
+	> seq <- V(graph)[2,3,7]
+	> length(seq)
+	[1] 3
+	> seq
+	+ 3/10 vertices, from cc79269:
+	[1] 2 3 7
+	> seq <- seq[1,3]    #filtering an existing vertex set
+	> > seq
+	+ 2/10 vertices, from cc79269:
+	[1] 2 7
+	> seq <- V(graph)[2,3,7,"foo", 3.5]
+	Error in simple_vs_index(x, ii, na_ok) : Unknown vertex selected
+
+
+Operators can be used to filter the vertices based on their attributes or their structural properties. First select the name of the attribute or structural property and then use the `which` function to evaluate each vertex using some operator and another attribute. For instance, the following command gives you people younger than 30 years in our imaginary social network:
+
+	> V(gi)$name[which(V(gi)$age < 30)] 
+	[1] "Alice"  "Claire" "Esther" "Frank" 
+
+
+
+The possibilities are as follows:
+
+| Operator | Meaning                                                                                                                             |
+|------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| `==`        | The attribute/property value must be *equal to*                                                    |
+| `!=`        | The attribute/property value must *not be equal to*                                                |
+| `<`        | The attribute/property value must be *less than*                                                   |
+| `<=`        | The attribute/property value must be *less than or equal to*                                     |
+| `>`        | The attribute/property value must be *greater than*                                          |
+| `>=`        | The attribute/property value must be *greater than or equal to*                                |
+| `%in%`        | The attribute/property value must be *included in*         |
+| `\`%notin%\` <- Negate(\`%in%\`)`     | The attribute/property value must *not be included in*  |
+  
+
+Theoretically, it can happen that there exists an attribute and a structural property with the same name (e.g., you could have a vertex attribute named `degree`). In that case, just be careful to reference the attribute correctly and then call the function to calculate the structural property. For instance, we create a new attribute called degree:
+
+	> V(gi)$degree <- c("A", "B", "C", "D", "E", "F", "G")
+	> V(gi)$degree[degree(gi) == 3]
+	[1] "A" "D" "F"
+	> V(gi)$name[degree(gi) == 3]
+	[1] "Alice"  "Dennis" "Frank" 
+
+There are also a few special structural properties for selecting edges:
+
+-Using `from` or `to` based on the source vertices of the edges. E.g., to select all the edges originating from Claire (who has vertex index 3):
+
+
+	> E(gi)[from(3)]
+	+ 4/9 edges from e0d557b (vertex names):
+	[1] Alice --Claire Claire--Dennis Claire--Esther Claire--Frank
+	
+
+Using `to` filter based on the target vertices. This is different from `from` if the graph is directed.
+
+For instance, the following expression selects all the edges between Claire (vertex index 2), Dennis (vertex index 3) and Esther (vertex index 4). The expression %--% is a special operator that can be used to select all edges between two sets of vertices. It ignores the edge directions in directed graphs.
+
+	> E(gi) [ 3:4 %--% 4:5 ]
+	+ 3/9 edges from 81fc383 (vertex names):
+	[1] Claire--Dennis Dennis--Esther Claire--Esther
+
+
+You can build lists based on attributes and evaluate the edges that originate with one set and end with the other. E.g., to select all the edges that connect men to women:
+
+
+	> men <- V(gi)$name[(which(V(gi)$gender == "m"))]
+	[1] "Bob"    "Dennis" "Frank"  "George"
+	> women <- V(gi)$name[(which(V(gi)$gender == "f"))] 
+	[1] "Alice"  "Claire" "Esther"
+	E(gi)[men %--% women]
+	+ 5/9 edges from 81fc383 (vertex names):
+	[1] Alice --Bob    Claire--Dennis Dennis--Esther Claire--Frank  Alice --Frank
+	
+
+### Finding a single vertex or edge with some properties
+
+
+In many cases we are looking for a single vertex or edge of a graph with some properties, and either we do not care which one of the matches is returned if there are multiple matches, or we know in advance that there will be only one match. A typical example is looking up vertices by their names in the `name` property. 
+
+For instance, to look up the vertex corresponding to Claire, one can do this:
+
+
+	> Claire <- match(c("Claire"),V(gi)$name)
+	[1] 3
+
+
+Looking up an unknown name will yield an exception:
+
+	> match(c("Joe"),V(gi)$name)
+	[1] NA
+
+
+### Looking up vertices by names
+
+Looking up vertices by names is a very common operation, and it is usually much easier to remember the names of the vertices in a graph than their IDs. To this end, igraph treats the `name` attribute of vertices specially; they are indexed such that vertices can be looked up by their names in amortized constant time. E.g, you can simply look up the degree (number of connections) of Dennis as follows:
+
+	> degree(gi,v="Dennis")
+	Dennis 
+	3 
+
+The mapping between vertex names and IDs is maintained transparently by igraph in the background; whenever the graph changes, igraph also updates the internal mapping. However, uniqueness of vertex names is *not* enforced; you can easily create a graph where two vertices have the same name, but igraph will return only one of them when you look them up by names, the other one will be available only by its index.
+
+
+## Treating a graph as an adjacency matrix
+
+Adjacency matrix is another way to form a graph. In adjacency matrix, rows and columns are labeled by graph vertices: the elements of the matrix indicate whether the vertices *i* and *j* have a common edge (*i, j*). The adjacency matrix for the example graph is:
+
+	> get.adjacency(gi)
+	7 x 7 sparse Matrix of class "dgCMatrix"
+	         Alice Bob Claire Dennis Esther Frank George
+	Alice      .   1      1      .      .     1      .
+	Bob        1   .      .      .      .     .      .
+	Claire     1   .      .      1      1     1      .
+	Dennis     .   .      1      .      1     .      1
+	Esther     .   .      1      1      .     .      .
+	Frank      1   .      1      .      .     .      1
+	George     .   .      .      1      .     1      .
+
+For example, Claire (`[1, 0, 0, 1, 1, 1, 0]`) is directly connected to Alice (who has vertex index 1), Dennis (index 4), Esther (index 5), and Frank (index 6), but not to Bob (index 2) nor George (index 7).
+
+
+## Layouts and plotting 
+
+A graph is an abstract mathematical object without a specific representation in 2D or 3D space. This means that whenever we want to visualise a graph, we have to find a mapping from vertices to coordinates in two- or three-dimensional space first, preferably in a way that is pleasing for the eye. A separate branch of graph theory, namely graph drawing, tries to solve this problem via several graph layout algorithms. igraph implements quite a few layout algorithms and is also able to draw them onto the screen or to a PDF, PNG or SVG file using the [Cairo library](https://www.cairographics.org).
+
+
+### Layout algorithms
+
+The layout methods in igraph are to be found in the `Graph` object, and they always start with `layout`. The following table summarises them:
+
+| Method name  |  Algorithm description |
+| --- | --- |
+|`layout_in_circle` `layout.circle`  | Deterministic layout that places the vertices on a circle |
+|`layout_with_drl` `layout.drl`  | The [Distributed Recursive Layout]() algorithm for large graphs |
+|`layout.fruchterman.reingold`| Fruchterman-Reingold force-directed algorithm |
+|`layout_with_kk` `layout.kamada.kawai` | Kamada-Kawai force-directed algorithm |
+|`layout_with_lgl` `layout.lgl` | The [Large Graph Layout]() algorithm for large graphs | 
+|`layout.random`| Places the vertices completely randomly |
+|`layout_randomly`| Places the vertices completely randomly in 3D |
+|`layout.reingold.tilford`| Reingold-Tilford tree layout, useful for (almost) tree-like graphs |
+|`layout_as_tree`| Reingold-Tilford tree layout with a polarcoordinate post-transformation, useful for (almost) tree-like graphs |
+|`layout_on_sphere` `layout.sphere`  | Deterministic layout that places the vertices evenly on the surface of a sphere |
+
+
+Layout algorithms can either be called directly:
+
+	> layout <- layout.kamada.kawai(gi)
+	> layout <- layout_with_kk(gi)
+
+
+For instance, the following two calls are completely equivalent:
+
+layout <- layout.reingold.tilford(gi, root= 2)
+layout <- layout_as_tree(gi, root = 2)
+
+Layout methods return a `Layout` object which behaves mostly like a list of lists. Each list entry in a `Layout` object corresponds to a vertex in the original graph and contains the vertex coordinates in the 2D or 3D space. `Layout` objects also contain some useful methods to translate, scale or rotate the coordinates in a batch. However, the primary utility of `Layout` objects is that you can pass them to the `plot` function along with the graph to obtain a 2D drawing.
+
+
+### Drawing a graph using a layout
+
+For instance, we can plot our imaginary social network with the Kamada-Kawai layout algorithm as follows:
+
+    >>> layout = g.layout("kk")
+    >>> ig.plot(g, layout=layout)
+
+This should open an external image viewer showing a visual representation of the network, something like the one on the following figure (although the exact placement of nodes may be different on your machine since the layout is not deterministic):
+
+![alt text](https://github.com/adriandiazlab/igraph_proyect/blob/main/Images/tutorial_social_network_R_1.png?raw=true)
 
 
 
