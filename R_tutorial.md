@@ -497,6 +497,116 @@ This latter approach is preferred if you want to keep the properties of the visu
 
 ![alt text](https://github.com/adriandiazlab/igraph_proyect/blob/main/Images/tutorial_social_network_R_3.png?raw=true)
 
+To sum it all up: there are special vertex and edge properties that correspond to the visual representation of the graph. These attributes override the default settings of igraph (i.e color, weight, name, shape,layout,etc.). The following two tables summarise the most frequently used visual attributes for vertices and edges, respectively:
+
+### Vertex attributes controlling graph plots
+
+| Attribute name | Keyword argument | Purpose |
+|---|---|----|
+| `color` |`vertex.color` | Color of the vertex |
+| `font` |                          `vertex.label.font`   |                              Font family of the vertex |
+|  `label`                        | `vertex.label`                              |  Label of the vertex. They will be converted to character. Specify NA to omit vertex labels. The default vertex labels are the vertex ids. |
+| `label angle`                  | `vertex.label.degree`                         | It defines the position of the vertex labels, relative to the center of the vertices. It is interpreted as an angle in radian, zero means ‘to the right’, and ‘pi’ means to the left, up is -pi/2 and down is pi/2. The default value is -pi/4 |
+|  `label color`                  | `vertex.label.color`                      |    Color of the vertex label |
+|  `label dist`                   | `vertex.label.dist`                        |   Distance of the vertex label from the vertex itself, relative to the vertex size |
+|  `label size`                  |  `vertex.label.size`                         |  Font size of the vertex label |
+|  `shape`                        | `vertex.shape`                               | The shape of the vertex, currently “circle”, “square”, “csquare”, “rectangle”, “crectangle”, “vrectangle”, “pie” (see vertex.shape.pie), ‘sphere’, and “none” are supported, and only by the plot.igraph command.  |
+| `size`                         | `vertex.size`                              |   The size of the vertex, a numeric scalar or vector, in the latter case each vertex sizes may differ |
+
+### Edge attributes controlling graph plots
+
+ | Attribute name    |              Keyword argument      |    Purpose |
+|-----------|-------------|------|
+|  `color`   |    `edge.color`      |      Color of the edge |
+|  `curved`    |     `edge.curved`     |       A numeric value specifies the curvature of the edge; zero curvature means straight edges, negative values means the edge bends clockwise, positive values the opposite. TRUE means curvature 0.5, FALSE means curvature zero |
+| `font`  |  `edge.font`    |         Font family of the edge |
+| `arrow size`            |        `edge.arrow.size`            |     Currently this is a constant, so it is the same for every edge. If a vector is submitted then only the first element is used, ie. if this is taken from an edge attribute then only the attribute of the first edge is used for all arrows. |
+|`arrow_width`    |     `edge.arrow.width`    |       The width of the arrows. Currently this is a constant, so it is the same for every edge |
+|  `width`         |                `edge.width`                  |                Width of the edge in pixels |
+|  `label`          |               `edge.label`        |                          If specified, it adds a label to the edge. |
+
+
+
+### Generic keyword arguments of `plot()`
+
+These settings can be specified as keyword arguments to the `plot` function to control the overall appearance of the plot.
+
+|  Keyword argument   |       Purpose   |
+|----|-----|
+|  `autocurve.edges`   |    Whether to determine the curvature of the edges automatically in graphs with multiple edges. |
+|  `layout`           |               The layout to be used. It can be an instance of `Layout`, a list of tuples containing X-Y coordinates, or the name of a layout algorithm. The default is `auto`, which selects a layout algorithm automatically based on the size and connectedness of the graph. |
+|  `margin`           |       The amount of empty space below, over, at the left and right of the plot, it is a numeric
+vector of length four. |
+
+
+
+### Specifying colors in plots
+
+igraph understands the following color specifications wherever it expects a color (e.g., edge, vertex or label colors in the respective attributes):
+
+***X11 color names***
+
+See the [list of X11 color names](https://en.wikipedia.org/wiki/X11_color_names) in Wikipedia for the complete list. Alternatively you can see the keys of the igraph.drawing.colors.known_colors dictionary. Color names are case insensitive in igraph so \"DarkBlue\" can be written as \"darkblue\" as well.
+
+***Color specification in CSS syntax***
+
+This is a string according to one of the following formats (where *R*, *G* and *B* denote the red, green and blue components, respectively):
+
+-   `#RRGGBB`, components range from 0 to 255 in hexadecimal format. Example: `"#0088ff"`.
+-   `#RGB`, components range from 0 to 15 in hexadecimal format. Example: `"#08f"`.
+-   `rgb(R, G, B)`, components range from 0 to 255 or from 0% to 100%. Example: `"rgb(0, 127, 255)"` or `"rgb(0%, 50%, 100%)"`.
+
+
+### Saving plots
+
+igraph can be used to create publication-quality plots. The preferred format is inferred from the extension. igraph can save to anything that is supported by Cairo, including SVG, PDF and PNG files. SVG or PDF files can then later be converted to PostScript (`.ps`) or Encapsulated PostScript (`.eps`) format if you prefer that, while PNG files can be converted to TIF (`.tif`):
+    
+	> png("social_network.png", 600, 600) 
+	> plot(gi, layout =layout, vertex.size = 20, margin = 0.5,
+     		vertex.color=c( "red", "yellow")[1+(V(gi)$gender == "m")], 
+     		edge.width=c(1,3)[1+(E(gi)$is_formal == TRUE)]
+		)
+	> dev.off()
+
+
+## igraph and the outside world
+
+No graph module would be complete without some kind of import/export functionality that enables the package to communicate with external programs and toolkits. igraph is no exception: it provides functions to read the most common graph formats and to save `Graph` objects into files obeying these format specifications. The following table summarises the formats igraph can read or write:
+
+ | Format | Short name | Reader method |  Writer method |
+ |---|---|----|----|
+ | Adjacency list (a.k.a. [LGL](https://lgl.sourceforge.net/#FileFormat))   |   `lgl`  |     `read_graph(file, format = c("lgl"))`    |     `write_graph(graph, file, format = c("lgl"))` |
+ | Adjacency matrix   |     `adjacency`   |  `graph_from_adjacency_matrix(adjmatrix, mode = c("directed", "undirected", "max", "min", "upper","lower", "plus"), weighted = NULL, diag = TRUE, add.colnames = NULL, add.rownames = NA)`   |  `as.matrix(graph, "adjacency")` |
+ |DIMACS   |       `dimacs`  |  `read_graph(file, format = c("dimacs"))`   |  `write_graph(graph, file, format = c("dimacs"))"` |
+ | DL       |  `dl`        |                  `Graph.Read_DL`       |     not supported yet |
+ | Edge list |   `edgelist` |  `read_graph(file, format = c("edgelist"))`    |  `write_graph(graph, file, format = c("edgelist"))` |
+ | [GraphViz](https://www.graphviz.org)   |    `dot`      |       not supported yet     |         `write_graph(graph, file, formati = c("dot"))` |
+ | GML   |   `gml`   |    `read_graph(file, format = c("gml"))`  |  `write_graph(graph, file, format = c("gml"))` |
+ | GraphML  |    `graphml`   |        `read_graph(file, format = c("graphml"))`   |    `write_graph(graph, file, format = c("graphml"))` |
+ | LEDA     |         `leda`       |    not supported yet    |       `write_graph(graph, file, format = c("leda"))` |
+ | Labeled edgelist (a.k.a. [NCOL](https://lgl.sourceforge.net/#FileFormat))  | `ncol`     |                   `read_graph(file, format = c("ncol"))`     |    `write_graph(graph, file, format = c("ncol"))` |
+ | [Pajek](http://mrvar.fdv.uni-lj.si/pajek/) format   |     `pajek`   | `read_graph(file, format = c("pajek"))`   |   `write_graph(graph, file, format = c("pajek"))` |
+
+
+As an exercise, download the graph representation of the well-known [Zachary karate club study](https://en.wikipedia.org/wiki/Zachary%27s_karate_club) from `this file </assets/zachary.zip>`, unzip it and try to load it into igraph. Since it is a GraphML file, you must use the GraphML reader method from the table above (make sure you use the appropriate path to the downloaded file):
+ 
+
+	> karate <- read_graph("zachary.graphml", format =c("graphml"))
+	> summary(karate)
+Note
+
+Most of the formats have their own limitations; for instance, not all of them can store attributes. Your best bet is probably GraphML or GML if you want to save igraph graphs in a format that can be read from an external package and you want to preserve numeric and string attributes. Edge list and NCOL is also fine if you don\'t have attributes (NCOL supports vertex names and edge weights, though). 
+
+There are two helper methods as well: `read` is a generic entry point for reader methods which tries to infer the appropriate format from the file extension. `write` is the opposite of `read`: it lets you save a graph where the preferred format is again inferred from the extension. The format detection of `read` and `write` can be overridden by the `format` keyword argument which accepts the short names of the formats from the above table:
+
+
+[comment]: # (I can't do the examples in igraph because of this error: GraphML support is disabled, Unimplemented function call)
+
+    
+## Where to go next
+
+This tutorial was only scratching the surface of what igraph can do. My long-term plans are to extend this tutorial into a proper manual-style documentation to igraph in the next chapters. In the meanwhile, check out the `api/index` which should provide information about almost every igraph class, function or method. A good starting point is the documentation of the `Graph` class. Should you get stuck, try asking in our [Discourse group](https://igraph.discourse.group) first - maybe there is someone out there who can help you out immediately.
+
 
 
 
