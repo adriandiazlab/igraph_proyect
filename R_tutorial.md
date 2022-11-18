@@ -535,8 +535,7 @@ These settings can be specified as keyword arguments to the `plot` function to c
 |----|-----|
 |  `autocurve.edges`   |    Whether to determine the curvature of the edges automatically in graphs with multiple edges. |
 |  `layout`           |               The layout to be used. It can be an instance of `Layout`, a list of tuples containing X-Y coordinates, or the name of a layout algorithm. The default is `auto`, which selects a layout algorithm automatically based on the size and connectedness of the graph. |
-|  `margin`           |       The amount of empty space below, over, at the left and right of the plot, it is a numeric
-vector of length four. |
+|  `margin`           |       The amount of empty space below, over, at the left and right of the plot, it is a numeric vector of length four. |
 
 
 
