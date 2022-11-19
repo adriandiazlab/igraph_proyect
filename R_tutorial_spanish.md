@@ -294,7 +294,7 @@ Teóricamente, puede ocurrir que exista un atributo y una propiedad estructural 
 
 También hay algunas propiedades estructurales especiales para seleccionar los aristas:
 
--   Utilizando `from` o `to` en función de los vértices de donde se originan las aristas. Por ejemplo, para seleccionar todas las aristas procedentes de Claire (que tiene el índice de vértice 3):
+Utilizando `from` o `to` en función de los vértices de donde se originan las aristas. Por ejemplo, para seleccionar todas las aristas procedentes de Claire (que tiene el índice de vértice 3):
 
 	> E(gi)[from(3)]
 	+ 4/9 edges from e0d557b (vertex names):
