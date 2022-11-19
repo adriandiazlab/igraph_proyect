@@ -359,7 +359,7 @@ La matriz de adyacencia es otra forma de formar un grafo. En la matriz de adyace
 	
 Por ejemplo, Claire (`[1, 0, 0, 1, 1, 1, 0]`) está directamente conectada con Alice (que tiene el índice 1), Dennis (índice 4), Esther (índice 5) y Frank (índice 6), pero no con Bob (índice 2) ni con George (índice 7).
 
-## Diseños ("Layouts") y grafiación
+## Diseños ("layouts") y graficación
 
 Un grafo es un objeto matemático abstracto sin una representación específica en el espacio 2D o 3D. Esto significa que cuando queremos visualizar un grafo, tenemos que encontrar primero un trazado de los vértices a las coordenadas en el espacio bidimensional o tridimensional, preferiblemente de una manera que sea agradable a la vista. Una rama separada de la teoría de grafos, denominada dibujo de grafos, trata de resolver este problema mediante varios algoritmos de disposición de grafos. igraph implementa varios algoritmos de diseño y también es capaz de dibujarlos en la pantalla o en un archivo PDF, PNG o SVG utilizando la [biblioteca Cairo](https://www.cairographics.org).
 
