@@ -273,7 +273,7 @@ Se pueden utilizar operadores para filtrar los vértices en función de sus atri
 
 Las posibilidades son las siguientes:
 
-| Operator | Meaning               |
+| Operador | Significado              |
 |------------------|-----------------------|
 | `==`        | El valor del atributo/propiedad debe ser *igual* a      |
 | `!=`        | El valor del atributo/propiedad debe *no ser igual* a   |
