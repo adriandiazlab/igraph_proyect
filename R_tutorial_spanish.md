@@ -282,7 +282,7 @@ Las posibilidades son las siguientes:
 | `>`        | El valor del atributo/propiedad debe ser *mayor que*   |
 | `>=`        | El valor del atributo/propiedad debe ser *mayor o igual a*  |
 | `%in%`        | El valor del atributo/propiedad debe estar *incluido en*      |
-| `%notin% <- Negate(%in%)` (primero crea la función)    | The attribute/property value must *not be included in*  |
+| `%notin% <- Negate(%in%)` (primero crea la función)    | El valor del atributo/propiedad debe *no estar incluido en* |
 
 Teóricamente, puede ocurrir que exista un atributo y una propiedad estructural con el mismo nombre (por ejemplo, podrías tener un atributo de vértice llamado "grado"). En ese caso, sólo hay que tener cuidado de referenciar correctamente el atributo y luego llamar a la función para calcular la propiedad estructural. Por ejemplo, creamos un nuevo atributo llamado grado:
 
