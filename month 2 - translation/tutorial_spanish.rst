@@ -374,3 +374,7 @@ Para ahorrarte algo de tecleo, puedes incluso omitir el método :meth:`~VertexSe
 desea::
 
   >>> g.vs(age_lt=30)
+  
+.. note::
+  Windows users will find the script inside the :file:`scripts` subdirectory of Python
+  and might have to add it manually to their path.
