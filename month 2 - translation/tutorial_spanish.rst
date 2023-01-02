@@ -365,7 +365,7 @@ Por ejemplo, el siguiente comando te da las personas menores de 30 años en nues
 
   >>> g.vs.select(age_lt=30)
 
-.. nota::
+.. note::
    Debido a las restricciones sintácticas de Python, no se puede utilizar la sintaxis más 
    sencilla de ``g.vs.select(edad < 30)``, ya que en Python sólo se permite que aparezca el 
    operador de igualdad en una lista de argumentos.
