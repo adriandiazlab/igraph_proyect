@@ -378,3 +378,10 @@ desea::
 .. note::
   Windows users will find the script inside the :file:`scripts` subdirectory of Python
   and might have to add it manually to their path.
+
+
+.. note::
+   The whole traceback, including info on the source code, is useful when
+   reporting bugs on our
+   `GitHub issue page <https://github.com/igraph/python-igraph/issues>`_. Please include it
+   if you create a new issue!
