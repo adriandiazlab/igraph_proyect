@@ -60,7 +60,7 @@ Este tutorial asumirá que has importado igraph usando el de nombres ``ig``.
 Creando un grafo
 ================
 
-La forma más sencilla de crear un grafo es con el constructor :class:`Graph`. Para hacer un grafo vacío:
+La forma más sencilla de crear un grafo es con el constructor :class:`Graph`. Para hacer un grafo vacío::
 
   >>> g = ig.Graph()
   
