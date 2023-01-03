@@ -625,7 +625,7 @@ Attribute name  Keyword argument       Purpose
 =============== ====================== ==========================================
 
 
-Edge attributes controlling graph plots
+Atributos de las aristas que controlan los gráficos
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
@@ -791,7 +791,7 @@ Si quieres convertir el mismo grafo a, digamos, el formato de Pajek, puedes hace
    grafo. El formato de grafos ``pickled`` usa el modulo ``pickle`` de Python para guardar y 
    leer grafos. 
 
-También existen dos métodos de ayuda: :func:`read` es un punto de entrada genérico para los métodos de lectura que intenta deducir el formato adecuado a partir de la extensión del archivo. :meth:`Graph.write` es lo contrario de :func:`read`: permite guardar un grafo en el que el formato preferido se deduce de nuevo de la extensión. La detección del formato de :func:`read` y :meth:`Graph.write` se puede anular mediante el argumento ``format`` de la palabra clave ("keyword"), la cual acepta los nombres cortos de los otros formatos de la tabla anterior:
+También existen dos métodos de ayuda: :func:`read` es un punto de entrada genérico para los métodos de lectura que intenta deducir el formato adecuado a partir de la extensión del archivo. :meth:`Graph.write` es lo contrario de :func:`read`: permite guardar un grafo en donde el formato preferido se deduce de nuevo de la extensión. La detección del formato de :func:`read` y :meth:`Graph.write` se puede anular mediante el argumento ``format`` de la palabra clave ("keyword"), la cual acepta los nombres cortos de los otros formatos de la tabla anterior:
 
   >>> karate = ig.load("zachary.graphml")
   >>> karate.write("zachary.net")
