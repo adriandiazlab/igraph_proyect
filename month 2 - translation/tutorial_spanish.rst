@@ -16,7 +16,7 @@ Esta página es un tutorial detallado de las capacidades de |igraph| para Python
 Comenzar con |igraph|
 =================
 
-La manera más común de usar |igraph| es como una importanción con nombre dentro de un ambiente de Python (por ejemplo, un simple shell de Python, a `IPython`_ shell, un `Jupyter`_ notebook o una instancia JupyterLab, `Google Colab <https://colab.research.google.com/>`_, o un `IDE <https://www.spyder-ide.org/>`_)::
+La manera más común de usar |igraph| es como una importanción con nombre dentro de un ambiente de Python (por ejemplo, un simple shell de Python, un `IPython`_ shell, un `Jupyter`_ notebook o una instancia JupyterLab, `Google Colab <https://colab.research.google.com/>`_, o un `IDE <https://www.spyder-ide.org/>`_)::
 
   $ python
   Python 3.9.6 (default, Jun 29 2021, 05:25:02)
@@ -31,7 +31,7 @@ Para llamar a funciones, es necesario anteponerles el prefijo ``ig`` (o el nombr
   0.9.8
 
 .. note::
-   Es posible utilizar *importación con asterisco* para |igraph|::
+   Es posible utilizar la *importación con  un asterisco* para |igraph|::
 
     >>> from igraph import *
     
@@ -49,13 +49,13 @@ Hay una segunda forma de iniciar |igraph|, que consiste en llamar al script :com
    Para los usuarios de Windows encontrarán el script dentro del subdirectorio file:`scripts` de Python 
    y puede que tengan que añadirlo manualmente a su ruta.
    
-Este script inicia un intérprete de comandos apropiado (`IPython`_ o `IDLE <https://docs.python.org/3/library/idle.html>`_ si se encuentra, de lo contrario un intérprete de comandos Python puro) y utiliza *importación con asterisco* (véase más arriba). Esto es a veces conveniente para usar las funciones de |igraph|.
+Este script inicia un intérprete de comandos apropiado (`IPython`_ o `IDLE <https://docs.python.org/3/library/idle.html>`_ si se encuentra, de lo contrario un intérprete de comandos Python) y utiliza la *importación con un asterisco* (véase más arriba). Esto es a veces conveniente para usar las funciones de |igraph|.
 
 .. note::
    Puede especificar qué shell debe utilizar este script a través 
    :doc:`configuration` de |igraph|.
 
-Este tutorial asumirá que has importado igraph usando el de nombres ``ig``.
+Este tutorial asumirá que has importado igraph usando el nombre de ``ig``.
 
 Creando un grafo
 ================
